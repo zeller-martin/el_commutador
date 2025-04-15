@@ -10,7 +10,7 @@ from scipy.spatial.transform import Rotation
 # --- Stepper Motor Controller Class ---
 class StepperController: 
     
-    def __init__(self, port, sense=-1, baud_rate=115200, microstep=True):
+    def __init__(self, port, sense=1, baud_rate=115200, microstep=True):
         self.lock = threading.Lock()
         self._connect(port, baud_rate)
         self.reset()
@@ -316,4 +316,4 @@ def run_commutator(port, title, source, screen_coordinates):
     thread.start()
     
 if __name__ == '__main__':
-    run_commutator(port = 'COM4', title = 'Box 1', source = None, screen_coordinates = (400, 500) )
+    run_commutator(port = 'COM57', title = 'Box 1', source = None, screen_coordinates = (400, 500) )

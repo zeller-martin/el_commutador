@@ -1,6 +1,9 @@
 ﻿# el_commutador
 
-a simple design for an activte coaxial commutator with SMA connectors. used for tangle-free freely-moving neuronal recordings in small animals using ulca miniscopes or neuropixels probes.
+a simple design for an activte coaxial commutator with SMA connectors. used for tangle-free freely-moving neuronal recordings in small animals using ulca miniscopes or neuropixels probes. this design mainly differs from the design sold in the open ephys store in the follwowing aspects:
+* mechanical parts and electronic controller are separate devices and connected with a cable
+* use of a hollow-shaft stepper instead of a gear system decreases mechanical complexity and size of the device
+* more simplistic and lower-priced design, but without any housing
 
 # assembling the commutator
 

@@ -72,6 +72,10 @@ class StepperController:
         with self.lock:
             self._write(f'T{t}X')
             self.step_time = t
+            
+    def ping(self):
+        """Flash LED to identify connected device."""  
+        self._write('F')
 
     def _activate_microstep(self):
         """Enable microstepping (finer resolution)."""
@@ -250,12 +254,19 @@ class App:
 
         self.stop_button = tk.Button(self.tk, text="STOP", command=stop_event)
         self.stop_button.pack()
+        
+        # --- Ping to flash LED ---
+        def ping_event():
+            self.stepper.ping()
+
+        self.ping_button = tk.Button(self.tk, text="PING", command=ping_event)
+        self.ping_button.pack()
 
         # --- Start updater thread ---
         self._updater = threading.Thread(target=self._update_loop, name='updater', daemon=True)
         self._updater.start()
 
-        self.tk.geometry(f'200x400+{screen_coordinates[0]}+{screen_coordinates[1]}')
+        self.tk.geometry(f'200x450+{screen_coordinates[0]}+{screen_coordinates[1]}')
 
         def exit_routine():
             self.stepper.reset()
@@ -267,7 +278,7 @@ class App:
     def _update_loop(self):
         """Continuously updates GUI and synchronizes motor with source."""
         while True:
-            target_pos = self.offset + self.offset_offset + self.source.position
+            target_pos = -self.offset - self.offset_offset + self.source.position
             self.source_pos.config(text=f'source position: {np.round(self.source.position / np.pi, 1)}π')
             self.target_pos.config(text=f'target position: {np.round(target_pos / np.pi, 1)}π')
 
@@ -316,4 +327,4 @@ def run_commutator(port, title, source, screen_coordinates):
     thread.start()
     
 if __name__ == '__main__':
-    run_commutator(port = 'COM57', title = 'Box 1', source = None, screen_coordinates = (400, 500) )
+    run_commutator(port = 'COM8', title = 'Box 1', source = None, screen_coordinates = (400, 500) )

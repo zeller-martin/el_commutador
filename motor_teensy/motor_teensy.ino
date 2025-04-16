@@ -78,6 +78,16 @@ void activate_microstep(bool yes) {
   }
 }
 
+// Flash LED to enable assignment of serial port to physical device
+void ping() {
+  for (byte i = 0; i < 10; ++i) {
+    digitalWrite(LED_DISABLE, HIGH);
+    delay(50);
+    digitalWrite(LED_DISABLE, LOW);
+    delay(50);
+  }
+}
+
 
 // ------------------- Setup -------------------
 
@@ -114,6 +124,7 @@ void loop() {
 
     switch (recv_byte) {
       case 'P': assign_param(&target); break;       // Set new target position
+      case 'F': ping(); break;                      // Flash status LED
       case 'R':                                     // Reset state and enable microstep
         pos = 0;
         target = 0;

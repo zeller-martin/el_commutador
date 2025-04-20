@@ -3,7 +3,6 @@
 #define dir         0   // Direction pin
 #define MS1         6   // Microstep control pin 1
 #define MS2         5   // Microstep control pin 2
-#define MS3         20  // Microstep control pin 3
 #define EN          7   // Enable pin
 #define LED_DISABLE 8   // Optional LED for showing disabled state
 
@@ -68,12 +67,10 @@ void activate_microstep(bool yes) {
   if (yes) {
     digitalWrite(MS1, HIGH);
     digitalWrite(MS2, HIGH);
-    digitalWrite(MS3, HIGH);
     steps_per_turn = 3200;  // 1/16 microstepping
   } else {
     digitalWrite(MS1, LOW);
     digitalWrite(MS2, LOW);
-    digitalWrite(MS3, LOW);
     steps_per_turn = 200;   // Full step
   }
 }
@@ -98,7 +95,6 @@ void setup() {
   pinMode(dir, OUTPUT);
   pinMode(MS1, OUTPUT);
   pinMode(MS2, OUTPUT);
-  pinMode(MS3, OUTPUT);
   pinMode(EN, OUTPUT);
   pinMode(LED_DISABLE, OUTPUT);
 

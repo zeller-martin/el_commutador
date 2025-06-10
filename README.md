@@ -7,7 +7,7 @@ a simple design for an active coaxial commutator with SMA connectors. used for t
 
 # assembling the commutator
 
-the file 'bom.xlsx' contains all necessary components. the file 'assembly.pdf' outlines the assembly of the hardware.
+the file 'bom.xlsx' contains all necessary components. the file 'assembly.pdf' outlines the assembly of the hardware. the total cost of all components for a single commutator is ca. 300 euros.
 
 # running the commutator
 

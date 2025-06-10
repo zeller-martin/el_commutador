@@ -165,7 +165,7 @@ class App:
 
         self.tk = tk.Tk()
         self.tk.title('Commutator app')
-        self.tk.label = tk.Label(self.tk, text=title)
+        self.tk.label = tk.Label(self.tk, text=title + f' ({port})')
         self.tk.label.pack()
 
         # --- File selection button ---
@@ -316,15 +316,28 @@ class App:
         self.stepper.pos_reset()
         self.source = CSV_source(filename)
         self.target_label.config(text=f'target source: {self.source.filename}')
+        
+    def exit(self):
+        """Quits application."""
+        self.stepper.reset()
+        self.tk.destroy()
 
 
 # --- External interface to start the app ---
 def run_commutator(port, title, source, screen_coordinates):
     def _thread_app(port, title, source, screen_coordinates):
         app = App(port, title, source, screen_coordinates)
-
+        return app
+        
     thread = threading.Thread(target=_thread_app, args=(port, title, source, screen_coordinates))
-    thread.start()
+    return thread.start()
     
 if __name__ == '__main__':
-    run_commutator(port = 'COM8', title = 'Box 1', source = None, screen_coordinates = (400, 500) )
+    a1 = run_commutator(port = 'COM59', title = 'Box A', source = None, screen_coordinates = (400, 500) )
+    a2 = run_commutator(port = 'COM58', title = 'Box B', source = None, screen_coordinates = (400, 500) )
+    a3 = run_commutator(port = 'COM57', title = 'Box C', source = None, screen_coordinates = (400, 500) )
+    time.sleep(20)
+    a1.exit()
+    a2.exit()
+    a3.exit()
+    time.sleep(5)
